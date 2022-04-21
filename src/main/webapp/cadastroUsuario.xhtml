@@ -12,12 +12,13 @@
             <p:panelGrid columns="3" layout="grid">
                 <p:panelGrid columns="1" layout="grid">
                     <p:outputLabel value="Nome" />
-                    <p:inputText value="#{gerUsuarioBean.usuario.nome}" required="true" />
-                    <p:outputLabel value="Senha" />
-                    <p:inputText value="#{gerUsuarioBean.usuario.senha}" required="true" />
+                    <p:inputText value="#{gerUsuarioBean.usuario.nome}" required="true" requiredMessage="O campo Nome é obrigatório" />
+                    <p:outputLabel value="Senha"/>
+                    <p:inputText value="#{gerUsuarioBean.usuario.senha}" required="true" requiredMessage="O campo Senha é obrigatório" />
                     <p:outputLabel value="CPF" />
-                    <p:inputText value="#{gerUsuarioBean.usuario.cpf}" required="true" />
+                    <p:inputText value="#{gerUsuarioBean.usuario.cpf}" required="true" requiredMessage="O campo CPF é obrigatório" />
                     <p:selectBooleanCheckbox value="#{gerUsuarioBean.usuario.admin}" itemLabel="Permissão de Administrador" />
+                    <p:commandButton value="salvar" actionListener="#{gerUsuarioBean.salva()}" update=":mensagem @form" process="@form" />
                 </p:panelGrid>
             </p:panelGrid>
 

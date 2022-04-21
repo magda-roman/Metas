@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import utils.JsfUtil;
 
 /**
  *
@@ -16,10 +17,17 @@ public class GerUsuarioBean implements Serializable{
     @EJB
     GerUsuarioService gus;
     
-    private GerUsuario usuario;
+    private GerUsuario usuario = new GerUsuario();
     
     public void salva(){
-        
+        try{
+        gus.salvar(usuario); 
+        JsfUtil.exibeMensagem("Sucesso");
+        usuario = new GerUsuario();
+        }catch(Exception e){
+            e.printStackTrace();
+            JsfUtil.fatal("Falha na inclusão");
+        }
     }
 
     public GerUsuario getUsuario() {

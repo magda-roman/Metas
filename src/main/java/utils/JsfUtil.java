@@ -22,6 +22,10 @@ public class JsfUtil {
     public static void exibeAviso(String mensagem) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção", mensagem));
     }
+    
+    public static void fatal(String mensagem) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Erro", mensagem));
+    }
 
     public static void redirecionar(String page) {
         if (page == null) {
