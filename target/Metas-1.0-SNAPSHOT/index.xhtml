@@ -5,9 +5,16 @@
     <style>
         .pnCenter .ui-panelgrid-content .ui-panelgrid-cell{
             background: #d1d1d1;
+            padding: 5px;
         }
         .panelCenter .ui-panel-content {
             background: #d1d1d1 !important;
+        }
+
+        .cc{
+            position: relative;
+            top: 50%;
+            transform: translateY(30%);
         }
     </style>
 
@@ -18,7 +25,7 @@
     <h:body>
         <h:form id="form1">
             <p:growl id="mensagem" showDetail="true" />
-            <p:panelGrid layout="grid" columns="3">
+            <p:panelGrid layout="grid" columns="3" styleClass="cc">
                 <p:panelGrid layout="grid" columns="1" />
                 <p:panel header="Login" styleClass="panelCenter">
                     <p:panelGrid layout="grid" columns="1" styleClass="pnCenter">
