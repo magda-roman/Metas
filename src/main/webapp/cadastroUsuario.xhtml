@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro de Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:growl id="mensagem" showDetail="true" />
+        <h:form id="form1">
+            <p:panelGrid columns="3" layout="grid">
+                <p:panelGrid columns="1" layout="grid">
+                    <p:outputLabel value="Nome" />
+                    <p:inputText value="#{gerUsuarioBean.usuario.nome}" required="true" />
+                    <p:outputLabel value="Senha" />
+                    <p:inputText value="#{gerUsuarioBean.usuario.senha}" required="true" />
+                    <p:outputLabel value="CPF" />
+                    <p:inputText value="#{gerUsuarioBean.usuario.cpf}" required="true" />
+                    <p:selectBooleanCheckbox value="#{gerUsuarioBean.usuario.admin}" itemLabel="Permissão de Administrador" />
+                </p:panelGrid>
+            </p:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>
