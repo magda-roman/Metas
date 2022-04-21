@@ -1,5 +1,6 @@
 package com.projeto2.metas.resources;
 
+import utils.JsfUtil;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -15,13 +16,13 @@ public class loginBean implements Serializable {
 
     private String usuario;
     private String senha;
-    
+
     @EJB
     private GerUsuarioService gus;
 
     public void valida() {
-        GerUsuario usr = gus.busca(14);
-        if (usr != null && usr.getNome().equals(usuario) && usr.getSenha().equals(senha)) {
+        GerUsuario usr = gus.buscaObjetoUsuario(usuario);
+        if (usr != null && usr.getSenha().equals(senha)) {
             JsfUtil.exibeMensagem("Sucesso");
             JsfUtil.redirecionar("/cadastroUsuario.xhtml");
         }
@@ -31,7 +32,7 @@ public class loginBean implements Serializable {
     public String getUsuario() {
         return usuario;
     }
-    
+
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }

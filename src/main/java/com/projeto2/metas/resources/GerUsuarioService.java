@@ -4,6 +4,7 @@
  */
 package com.projeto2.metas.resources;
 
+import com.projeto2.metas.resources.Crud.GenericDAO;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
