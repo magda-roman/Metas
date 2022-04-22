@@ -4,7 +4,7 @@
  */
 package com.projeto2.metas.resources.Crud;
 
-import com.projeto2.metas.resources.GerUsuario;
+import Classes.GerUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
