@@ -2,9 +2,9 @@ Classes\GerTipoIndXFaixas.class
 Beans\loginBean.class
 Classes\GerTipoIndicadores.class
 Beans\GerUsuarioBean.class
+Classes\GerUsuario.class
 Classes\MovIndXTipos.class
 utils\JsfUtil.class
 com\projeto2\metas\resources\Crud\GenericDAO.class
 Classes\MovIndicadores.class
 Services\GerUsuarioService.class
-Classes\GerUsuario.class

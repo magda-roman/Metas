@@ -6,6 +6,8 @@ package Services;
 
 import Classes.GerUsuario;
 import com.projeto2.metas.resources.Crud.GenericDAO;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -16,7 +18,7 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class GerUsuarioService extends GenericDAO<GerUsuario>{
-
+    
     @Override
     public void salvar(GerUsuario object) {
         super.salvar(object);
@@ -25,5 +27,5 @@ public class GerUsuarioService extends GenericDAO<GerUsuario>{
     public GerUsuario busca(Integer id) {
         return super.busca(GerUsuario.class, id);
     }
-
+     
 }

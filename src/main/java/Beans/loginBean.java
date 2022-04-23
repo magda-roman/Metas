@@ -4,9 +4,13 @@ import Classes.GerUsuario;
 import Services.GerUsuarioService;
 import utils.JsfUtil;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import utils.ListUtil;
 
 /**
  *
@@ -23,8 +27,11 @@ public class loginBean implements Serializable {
     private GerUsuarioService gus;
 
     public void valida() {
-        GerUsuario usr = gus.buscaObjetoUsuario(usuario);
-        if (usr != null && usr.getSenha().equals(senha)) {
+        Map<String, Object> filtros = new HashMap<>();
+        filtros.put("nome", usuario);
+        filtros.put("senha", senha);
+        List<GerUsuario> usuarios = gus.filtrar(filtros);
+        if (ListUtil.isNotEmpty(usuarios)) {
             JsfUtil.exibeMensagem("Sucesso");
             JsfUtil.redirecionar("/cadastroUsuario.xhtml");
         }
