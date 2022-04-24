@@ -1,8 +1,12 @@
 Classes\GerTipoIndXFaixas.class
-Beans\loginBean.class
+utils\ListUtil.class
 Classes\GerTipoIndicadores.class
 Beans\GerUsuarioBean.class
+utils\SecUtil.class
 Classes\GerUsuario.class
+Beans\LoginBean.class
+utils\StringUtil.class
+Beans\GerBean.class
 Classes\MovIndXTipos.class
 utils\JsfUtil.class
 com\projeto2\metas\resources\Crud\GenericDAO.class

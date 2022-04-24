@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import utils.ListUtil;
+import utils.SecUtil;
 
 /**
  *
@@ -18,7 +19,7 @@ import utils.ListUtil;
  */
 @Named
 @ViewScoped
-public class loginBean implements Serializable {
+public class LoginBean implements Serializable {
 
     private String usuario;
     private String senha;
@@ -29,7 +30,7 @@ public class loginBean implements Serializable {
     public void valida() {
         Map<String, Object> filtros = new HashMap<>();
         filtros.put("nome", usuario);
-        filtros.put("senha", senha);
+        filtros.put("senha", SecUtil.Encript(senha));
         List<GerUsuario> usuarios = gus.filtrar(filtros);
         if (ListUtil.isNotEmpty(usuarios)) {
             JsfUtil.exibeMensagem("Sucesso");
