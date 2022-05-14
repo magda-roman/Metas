@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cadastro de Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:growl id="mensagem" showDetail="true" />
+        <h:form id="form1">
+            <p:panelGrid columns="3" layout="grid">
+                <p:panelGrid columns="1" layout="grid">
+                    <p:outputLabel value="Descrição" />
+                    <p:inputText value="#{gerTipoIndicadoresBean.tipoIndicadores.tpiDesc}" required="true" requiredMessage="O campo Nome é obrigatório" />
+
+                    <p:outputLabel value="Situação"/>
+                    <p:selectOneRadio value="#{gerTipoIndicadoresBean.tipoIndicadores.tpiAtivo}">
+                        <f:selectItem itemValue="#{true}" itemLabel="Ativo" />
+                        <f:selectItem itemValue="#{false}" itemLabel="Inativo" />
+                    </p:selectOneRadio>
+
+                </p:panelGrid>
+            </p:panelGrid>
+
+            <p:dataTable id="tabFaixas" value="#{gerTipoIndicadoresBean.tipoIndicadores.tpIndXFaixas}" var="ixf" rowIndexVar="ixfIndex">
+                <f:facet name="header">
+                    <p:commandButton value="adicionar" style="background-color: #28a571"
+                                     actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
+                </f:facet>
+                <p:column headerText="Faixa Inicial">
+                    <p:inputNumber value="#{ixf.tpfFaixaIni}" />
+                </p:column>
+                <p:column headerText="Faixa Final">
+                    <p:inputNumber value="#{ixf.tpfFaixaFim}" />
+                </p:column>
+                <p:column headerText="Percentual de premiação">
+                    <p:inputText value="#{ixf.tpfPercPremiacao}" maxlength="3" >
+                        <p:keyFilter mask="pint" />
+                    </p:inputText>
+                </p:column>
+                <p:column headerText="Ação" width="90">
+                    <p:commandButton value="remove" actionListener="#{gerTipoIndicadoresBean.remove(ixfIndex)}" update=":mensagem :form1:tabFaixas" process="@this" />
+                </p:column>
+            </p:dataTable>
+
+            <br />
+
+            <p:commandButton value="salvar" actionListener="#{gerTipoIndicadoresBean.salva()}" update=":mensagem @form" process="@form" />
+        </h:form>
+    </h:body>
+</html>

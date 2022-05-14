@@ -2,10 +2,13 @@ C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Beans\GerBean.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Classes\GerTipoIndicadores.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\com\projeto2\metas\resources\Crud\GenericDAO.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Classes\MovIndicadores.java
+C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Services\GerTipoIndicadoresService.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Security\GerenciaPrivilegiosUtil.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Classes\GerTipoIndXFaixas.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\utils\ListUtil.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\utils\SecUtil.java
+C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Services\GerTipoIndXFaixasService.java
+C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Services\GerTipoIndicadoresBean.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Classes\GerUsuario.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Beans\LoginBean.java
 C:\Users\edumo\Documents\GitHub\Metas\src\main\java\Beans\GerUsuarioBean.java

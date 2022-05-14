@@ -23,28 +23,24 @@ import javax.validation.constraints.NotNull;
  * @author edumokfa
  */
 @Entity
-@Table(name = "GER_TIPO_INDIXFAIXAS")
+@Table(name = "GER_TIPO_INDXFAIXAS")
 public class GerTipoIndXFaixas implements Serializable {
-    
+
     @Id
     @SequenceGenerator(name = "GEN_GER_TIPO_INDXFAIXAS", sequenceName = "GEN_GER_TIPO_INDXFAIXAS", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "GEN_GER_TIPO_INDXFAIXAS")
     @Column(name = "TPF_COD")
     private Integer tpfCod;
     @NotNull
-    @JoinColumn(name = "TPF_COD_TIPO", referencedColumnName = "TPI_COD")
+    @JoinColumn(name = "TPF_CODTIPO", referencedColumnName = "TPI_COD")
     @ManyToOne(fetch = FetchType.LAZY)
     private GerTipoIndicadores tpfCodTipo;
-    @NotNull
-    @Column(name = "TPF_SEQ")
-    private Integer tpfSeq;
     @Column(name = "TPF_FAIXA_INI")
     private Double tpfFaixaIni;
     @Column(name = "TPF_FAIXA_FIM")
     private Double tpfFaixaFim;
     @Column(name = "TPF_PERC_PREMIACAO")
     private Double tpfPercPremiacao;
-    
 
     public GerTipoIndXFaixas() {
     }
@@ -63,14 +59,6 @@ public class GerTipoIndXFaixas implements Serializable {
 
     public void setTpfCodTipo(GerTipoIndicadores tpfCodTipo) {
         this.tpfCodTipo = tpfCodTipo;
-    }
-
-    public Integer getTpfSeq() {
-        return tpfSeq;
-    }
-
-    public void setTpfSeq(Integer tpfSeq) {
-        this.tpfSeq = tpfSeq;
     }
 
     public Double getTpfFaixaIni() {
@@ -118,7 +106,5 @@ public class GerTipoIndXFaixas implements Serializable {
         final GerTipoIndXFaixas other = (GerTipoIndXFaixas) obj;
         return Objects.equals(this.tpfCod, other.tpfCod);
     }
-    
-    
-        
+
 }

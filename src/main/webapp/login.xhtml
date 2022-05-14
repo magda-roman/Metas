@@ -23,20 +23,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:form id="form1">
-            <p:growl id="mensagem" showDetail="true" />
-            <p:panelGrid layout="grid" columns="3" styleClass="cc">
-                <p:panelGrid layout="grid" columns="1" />
-                <p:panel header="Login" styleClass="panelCenter">
-                    <p:panelGrid layout="grid" columns="1" styleClass="pnCenter">
-                        <p:outputLabel value="Usuário" />
-                        <p:inputText value="#{loginBean.usuario}" placeholder="Usuário" />
-                        <p:outputLabel value="Senha" />
-                        <p:password value="#{loginBean.senha}" placeholder="Senha" />
-                        <p:commandButton value="Login" actionListener="#{loginBean.valida()}" icon="fa fa-trash" process="@form" update=":form1:mensagem"/>
-                    </p:panelGrid>
-                </p:panel>
-            </p:panelGrid>
-        </h:form>
+        <div style="background-color: gray; height: 768px; width: 1360px;">
+            <h:form id="form1">
+                <p:growl id="mensagem" showDetail="true" />
+                <p:panelGrid layout="grid" columns="3" styleClass="cc">
+                    <p:panelGrid layout="grid" columns="1" />
+                    <p:panel header="Login" styleClass="panelCenter">
+                        <p:panelGrid layout="grid" columns="1" styleClass="pnCenter">
+                            <p:outputLabel value="Usuário" />
+                            <p:inputText value="#{loginBean.usuario}" placeholder="Usuário" />
+                            <p:outputLabel value="Senha" />
+                            <p:password value="#{loginBean.senha}" placeholder="Senha" />
+                            <p:commandButton value="Login" actionListener="#{loginBean.valida()}" icon="fa fa-trash" process="@form" update=":form1:mensagem"/>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:panelGrid>
+            </h:form>
+        </div>
     </h:body>
 </html>

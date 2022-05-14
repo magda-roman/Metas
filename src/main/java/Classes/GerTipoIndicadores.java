@@ -5,12 +5,17 @@
 package Classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,7 +27,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "GER_TIPO_INDICADORES")
 public class GerTipoIndicadores implements Serializable {
-    
+
     @Id
     @SequenceGenerator(name = "GEN_GER_TIPO_INDICADORES", sequenceName = "GEN_GER_TIPO_INDICADORES", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "GEN_GER_TIPO_INDICADORES")
@@ -33,13 +38,13 @@ public class GerTipoIndicadores implements Serializable {
     private String TpiDesc;
     @NotNull
     @Column(name = "TPI_ATIVO")
-    private Boolean tpiAtivo;
+    private Boolean tpiAtivo = true;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tpfCodTipo", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<GerTipoIndXFaixas> tpIndXFaixas = new ArrayList<>();
 
     public GerTipoIndicadores() {
     }
 
-    
-    
     public Integer getTpiCod() {
         return tpiCod;
     }
@@ -62,6 +67,14 @@ public class GerTipoIndicadores implements Serializable {
 
     public void setTpiAtivo(Boolean tpiAtivo) {
         this.tpiAtivo = tpiAtivo;
+    }
+
+    public List<GerTipoIndXFaixas> getTpIndXFaixas() {
+        return tpIndXFaixas;
+    }
+
+    public void setTpIndXFaixas(List<GerTipoIndXFaixas> tpIndXFaixas) {
+        this.tpIndXFaixas = tpIndXFaixas;
     }
 
     @Override
