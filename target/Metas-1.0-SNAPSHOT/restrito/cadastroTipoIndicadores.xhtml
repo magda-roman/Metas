@@ -30,18 +30,23 @@
                                      actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
                 </f:facet>
                 <p:column headerText="Faixa Inicial">
-                    <p:inputNumber value="#{ixf.tpfFaixaIni}" />
+                    <p:inputNumber value="#{ixf.tpfFaixaIni}" >
+                        <p:ajax />
+                    </p:inputNumber>
                 </p:column>
                 <p:column headerText="Faixa Final">
-                    <p:inputNumber value="#{ixf.tpfFaixaFim}" />
+                    <p:inputNumber value="#{ixf.tpfFaixaFim}" >
+                        <p:ajax />
+                    </p:inputNumber>
                 </p:column>
                 <p:column headerText="Percentual de premiação">
                     <p:inputText value="#{ixf.tpfPercPremiacao}" maxlength="3" >
                         <p:keyFilter mask="pint" />
+                        <p:ajax />
                     </p:inputText>
                 </p:column>
                 <p:column headerText="Ação" width="90">
-                    <p:commandButton value="remove" actionListener="#{gerTipoIndicadoresBean.remove(ixfIndex)}" update=":mensagem :form1:tabFaixas" process="@this" />
+                    <p:commandButton value="Remove" actionListener="#{gerTipoIndicadoresBean.remove(ixfIndex)}" update=":mensagem :form1:tabFaixas" process="@this" />
                 </p:column>
             </p:dataTable>
 

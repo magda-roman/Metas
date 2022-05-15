@@ -75,4 +75,9 @@ public abstract class GenericDAO<T> {
         }
         return query.getResultList();
     }
+
+    public <T> List<T> executeNativeQuery(String sqlQuery) {
+        List<T> list = (List<T>) em.createNativeQuery(sqlQuery, getEntityClass()).getResultList();
+        return list;
+    }
 }

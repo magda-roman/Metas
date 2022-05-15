@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -40,6 +41,7 @@ public class GerTipoIndicadores implements Serializable {
     @Column(name = "TPI_ATIVO")
     private Boolean tpiAtivo = true;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tpfCodTipo", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy(value = "tpfPercPremiacao")
     private List<GerTipoIndXFaixas> tpIndXFaixas = new ArrayList<>();
 
     public GerTipoIndicadores() {

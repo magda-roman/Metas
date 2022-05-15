@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cadastro de Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:growl id="mensagem" showDetail="true" />
+        <h:form id="form1">
+            <p:panelGrid columns="3" layout="grid">
+                <p:panelGrid columns="1" layout="grid">
+                    <p:outputLabel value="Data Referência" />
+                    <p:calendar id="dtRef" value="#{movIndicadoresBean.movIndicadores.movDtHr}"  required="true" requiredMessage="O campo Data Referência é obrigatório" showOn="button"/>
+                    <p:outputLabel value="Código do Tipo de indicador" />
+                    <p:panelGrid columns="2" layout="grid" style="padding: 0px">
+                        <p:inputText value="#{movIndicadoresBean.codTpInd}" size="10" >
+                            <p:keyFilter mask="pint" />
+                            <p:ajax update=":mensagem @form" listener="#{movIndicadoresBean.buscaTpInd()}" />
+                        </p:inputText>
+                        <p:inputText value="#{movIndicadoresBean.itemLabelTpInd}" disabled="true" />
+                    </p:panelGrid>
+                </p:panelGrid>
+            </p:panelGrid>
+
+            <p:dataTable id="tabMovimentos" value="#{movIndicadoresBean.movIndicadores.movIndXTipos}" var="mixf" rowIndexVar="mixfIndex">
+                <f:facet name="header">
+                    <p:commandButton value="adicionar" style="background-color: #28a571"
+                                     actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabMovimentos" process="@this" />
+                </f:facet>
+                <p:column headerText="Valor atual">
+                    <p:inputNumber value="#{mixf.mviVlrResultado}" required="true" requiredMessage="O campo Valor Atual é obrigatório" >
+                        <p:ajax listener="#{movIndicadoresBean.atualizaPercentual()}" update=":form1:tabMovimentos" />
+                    </p:inputNumber>
+                </p:column>
+                <p:column headerText="Percentual calculado">
+                    <p:inputText value="#{mixf.mviPercCalculado}" maxlength="3" >
+                        <p:keyFilter mask="pint" />
+                    </p:inputText>
+                </p:column>
+                <p:column headerText="Ação" width="90">
+                    <p:commandButton value="Remove" actionListener="#{movIndicadoresBean.remove(mixfIndex)}" update=":mensagem :form1:tabMovimentos" process="@this" />
+                </p:column>
+            </p:dataTable>
+
+            <br />
+
+            <p:commandButton value="salvar" actionListener="#{movIndicadoresBean.salva()}" update=":mensagem @form" process="@form" />
+        </h:form>
+    </h:body>
+</html>
