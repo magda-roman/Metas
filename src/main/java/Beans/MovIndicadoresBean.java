@@ -11,6 +11,7 @@ import Classes.MovIndicadores;
 import Services.GerTipoIndicadoresService;
 import Services.MovIndicadoresService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -33,7 +34,7 @@ public class MovIndicadoresBean implements Serializable {
     private GerTipoIndicadoresService gti;
 
     private MovIndicadores movIndicadores = new MovIndicadores();
-    private GerTipoIndicadores tpInd = new GerTipoIndicadores();
+    private GerTipoIndicadores tpInd;
     private Integer codTpInd;
 
     @PostConstruct
@@ -56,6 +57,8 @@ public class MovIndicadoresBean implements Serializable {
             GerTipoIndicadores tpind = mis.buscaIndicadorPorValor(mov.getMviVlrResultado());
             mov.setMviCodTipo(tpind);
             mov.setMviPercCalculado(buscaFaixaPorValor(tpind.getTpIndXFaixas(), mov.getMviVlrResultado()).getTpfPercPremiacao());
+        } else {
+            tpInd = null;
         }
     }
 
@@ -70,6 +73,10 @@ public class MovIndicadoresBean implements Serializable {
     }
 
     public void adiciona() {
+        if (tpInd == null) {
+            JsfUtil.exibeAviso("Selecione um tipo de indicador");
+            return;
+        }
         MovIndXTipos mixt = new MovIndXTipos();
         mixt.setMviCodIndi(movIndicadores);
         movIndicadores.getMovIndXTipos().add(mixt);
@@ -82,6 +89,7 @@ public class MovIndicadoresBean implements Serializable {
     }
 
     public void buscaTpInd() {
+        movIndicadores.getMovIndXTipos().clear();
         tpInd = gti.busca(codTpInd);
         if (tpInd == null) {
             JsfUtil.exibeAviso("Nenhum indicador com este código foi encontrado");
@@ -90,7 +98,7 @@ public class MovIndicadoresBean implements Serializable {
 
     public String getItemLabelTpInd() {
         String retorno = "Selecione um tipo de indicador";
-        if (tpInd != null) {
+        if (tpInd != null && tpInd.getTpiDesc() != null) {
             retorno = tpInd.getTpiDesc();
         }
         return retorno;

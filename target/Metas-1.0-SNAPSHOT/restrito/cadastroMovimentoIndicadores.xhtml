@@ -6,6 +6,7 @@
     <h:head>
         <title>Cadastro de Usuario</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="geral.css" />
     </h:head>
     <h:body>
         <p:growl id="mensagem" showDetail="true" />
@@ -15,8 +16,8 @@
                     <p:outputLabel value="Data Referência" />
                     <p:calendar id="dtRef" value="#{movIndicadoresBean.movIndicadores.movDtHr}"  required="true" requiredMessage="O campo Data Referência é obrigatório" showOn="button"/>
                     <p:outputLabel value="Código do Tipo de indicador" />
-                    <p:panelGrid columns="2" layout="grid" style="padding: 0px">
-                        <p:inputText value="#{movIndicadoresBean.codTpInd}" size="10" >
+                    <p:panelGrid columns="5" layout="grid" style="padding: 0px">
+                        <p:inputText value="#{movIndicadoresBean.codTpInd}">
                             <p:keyFilter mask="pint" />
                             <p:ajax update=":mensagem @form" listener="#{movIndicadoresBean.buscaTpInd()}" />
                         </p:inputText>
@@ -25,29 +26,31 @@
                 </p:panelGrid>
             </p:panelGrid>
 
-            <p:dataTable id="tabMovimentos" value="#{movIndicadoresBean.movIndicadores.movIndXTipos}" var="mixf" rowIndexVar="mixfIndex">
-                <f:facet name="header">
-                    <p:commandButton value="adicionar" style="background-color: #28a571"
-                                     actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabMovimentos" process="@this" />
-                </f:facet>
-                <p:column headerText="Valor atual">
-                    <p:inputNumber value="#{mixf.mviVlrResultado}" required="true" requiredMessage="O campo Valor Atual é obrigatório" >
-                        <p:ajax listener="#{movIndicadoresBean.atualizaPercentual()}" update=":form1:tabMovimentos" />
-                    </p:inputNumber>
-                </p:column>
-                <p:column headerText="Percentual calculado">
-                    <p:inputText value="#{mixf.mviPercCalculado}" maxlength="3" >
-                        <p:keyFilter mask="pint" />
-                    </p:inputText>
-                </p:column>
-                <p:column headerText="Ação" width="90">
-                    <p:commandButton value="Remove" actionListener="#{movIndicadoresBean.remove(mixfIndex)}" update=":mensagem :form1:tabMovimentos" process="@this" />
-                </p:column>
-            </p:dataTable>
+            <p:panelGrid columns="1" layout="grid">
+                <p:dataTable id="tabMovimentos" value="#{movIndicadoresBean.movIndicadores.movIndXTipos}" var="mixf" rowIndexVar="mixfIndex">
+                    <f:facet name="header">
+                        <p:commandButton value="adicionar" style="background-color: #28a571"
+                                         actionListener="#{movIndicadoresBean.adiciona()}" update=":mensagem :form1:tabMovimentos" process="@this" />
+                    </f:facet>
+                    <p:column headerText="Valor atual">
+                        <p:inputNumber value="#{mixf.mviVlrResultado}" required="true" requiredMessage="O campo Valor Atual é obrigatório" >
+                            <p:ajax listener="#{movIndicadoresBean.atualizaPercentual(mixf)}" update=":form1:tabMovimentos" />
+                        </p:inputNumber>
+                    </p:column>
+                    <p:column headerText="Percentual calculado">
+                        <p:inputText value="#{mixf.mviPercCalculado}" maxlength="3" >
+                            <p:keyFilter mask="pint" />
+                        </p:inputText>
+                    </p:column>
+                    <p:column headerText="Ação" width="90">
+                        <p:commandButton value="Remove" actionListener="#{movIndicadoresBean.remove(mixfIndex)}" update=":mensagem :form1:tabMovimentos" process="@this" />
+                    </p:column>
+                </p:dataTable>
 
-            <br />
+                <br />
 
-            <p:commandButton value="salvar" actionListener="#{movIndicadoresBean.salva()}" update=":mensagem @form" process="@form" />
+                <p:commandButton value="salvar" actionListener="#{movIndicadoresBean.salva()}" update=":mensagem @form" process="@form" />
+            </p:panelGrid>
         </h:form>
     </h:body>
 </html>
