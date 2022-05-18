@@ -36,7 +36,7 @@ public class GerTipoIndicadores implements Serializable {
     private Integer tpiCod;
     @NotNull
     @Column(name = "TPI_DESC")
-    private String TpiDesc;
+    private String tpiDesc;
     @NotNull
     @Column(name = "TPI_ATIVO")
     private Boolean tpiAtivo = true;
@@ -56,11 +56,11 @@ public class GerTipoIndicadores implements Serializable {
     }
 
     public String getTpiDesc() {
-        return TpiDesc;
+        return tpiDesc;
     }
 
     public void setTpiDesc(String TpiDesc) {
-        this.TpiDesc = TpiDesc;
+        this.tpiDesc = TpiDesc;
     }
 
     public Boolean getTpiAtivo() {

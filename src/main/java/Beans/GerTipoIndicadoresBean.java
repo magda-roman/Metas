@@ -8,10 +8,13 @@ import Classes.GerTipoIndXFaixas;
 import Classes.GerTipoIndicadores;
 import Services.GerTipoIndicadoresService;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import utils.JsfUtil;
+import utils.StringUtil;
 
 /**
  *
@@ -34,6 +37,16 @@ public class GerTipoIndicadoresBean implements Serializable {
         } catch (Exception e) {
             JsfUtil.fatal("Falha no cadastro");
         }
+    }
+
+    public void pesquisa() {
+        if (StringUtil.nullOrEmpty(tipoIndicadores.getTpiDesc())) {
+            JsfUtil.exibeAviso("Digite uma descrição para pesquisar");
+            return;
+        }
+        Map<String, Object> filtros = new HashMap<>();
+        filtros.put("tpiDesc", tipoIndicadores.getTpiDesc());
+        tipoIndicadores = gti.filtrar(filtros).get(0);
     }
 
     public void adiciona() {

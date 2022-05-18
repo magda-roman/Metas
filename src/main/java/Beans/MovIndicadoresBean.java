@@ -97,7 +97,7 @@ public class MovIndicadoresBean implements Serializable {
     }
 
     public String getItemLabelTpInd() {
-        String retorno = "Selecione um tipo de indicador";
+        String retorno = "Digite o código";
         if (tpInd != null && tpInd.getTpiDesc() != null) {
             retorno = tpInd.getTpiDesc();
         }

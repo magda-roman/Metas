@@ -15,23 +15,21 @@
                 <p:panelGrid columns="1" layout="grid">
                     <p:outputLabel value="Data Referência" />
                     <p:calendar id="dtRef" value="#{movIndicadoresBean.movIndicadores.movDtHr}"  required="true" requiredMessage="O campo Data Referência é obrigatório" showOn="button"/>
-                    <p:outputLabel value="Código do Tipo de indicador" />
+                    <p:outputLabel value="Tipo de indicador" />
                     <p:panelGrid columns="5" layout="grid" style="padding: 0px">
-                        <p:inputText value="#{movIndicadoresBean.codTpInd}">
+                        <p:inputText value="#{movIndicadoresBean.codTpInd}" size="5">
                             <p:keyFilter mask="pint" />
                             <p:ajax update=":mensagem @form" listener="#{movIndicadoresBean.buscaTpInd()}" />
                         </p:inputText>
-                        <p:inputText value="#{movIndicadoresBean.itemLabelTpInd}" disabled="true" />
+                        <p:inputText value="#{movIndicadoresBean.itemLabelTpInd}" disabled="true" size="30" />
                     </p:panelGrid>
                 </p:panelGrid>
             </p:panelGrid>
 
             <p:panelGrid columns="1" layout="grid">
+                <p:commandButton value="adicionar" style="background-color: #28a571"
+                                 actionListener="#{movIndicadoresBean.adiciona()}" update=":mensagem :form1:tabMovimentos" process="@this" />
                 <p:dataTable id="tabMovimentos" value="#{movIndicadoresBean.movIndicadores.movIndXTipos}" var="mixf" rowIndexVar="mixfIndex">
-                    <f:facet name="header">
-                        <p:commandButton value="adicionar" style="background-color: #28a571"
-                                         actionListener="#{movIndicadoresBean.adiciona()}" update=":mensagem :form1:tabMovimentos" process="@this" />
-                    </f:facet>
                     <p:column headerText="Valor atual">
                         <p:inputNumber value="#{mixf.mviVlrResultado}" required="true" requiredMessage="O campo Valor Atual é obrigatório" >
                             <p:ajax listener="#{movIndicadoresBean.atualizaPercentual(mixf)}" update=":form1:tabMovimentos" />
