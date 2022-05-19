@@ -12,14 +12,21 @@
         <h:form id="form1">
             <p:panelGrid columns="3" layout="grid">
                 <p:panelGrid columns="1" layout="grid">
-                    <p:outputLabel value="Nome" />
-                    <p:inputText value="#{gerUsuarioBean.usuario.nome}" required="true" requiredMessage="O campo Nome é obrigatório" />
-                    <p:outputLabel value="Senha"/>
-                    <p:inputText value="#{gerUsuarioBean.usuario.senha}" required="true" requiredMessage="O campo Senha é obrigatório" />
-                    <p:outputLabel value="CPF" />
-                    <p:inputMask value="#{gerUsuarioBean.usuario.cpf}" mask="999.999.999-99" validateMask="true" required="true" requiredMessage="O campo CPF é obrigatório" />
-                    <p:selectBooleanCheckbox value="#{gerUsuarioBean.usuario.admin}" itemLabel="Permissão de Administrador" />
-                    <p:commandButton value="salvar" actionListener="#{gerUsuarioBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:panelGrid columns="1" layout="grid">
+                        <p:outputLabel value="Nome" />
+                        <p:inputText id="nome" value="#{gerUsuarioBean.usuario.nome}" required="true" requiredMessage="O campo Nome é obrigatório" />
+                        <p:outputLabel value="Senha"/>
+                        <p:inputText value="#{gerUsuarioBean.usuario.senha}" required="true" requiredMessage="O campo Senha é obrigatório" />
+                        <p:outputLabel value="CPF" />
+                        <p:inputMask value="#{gerUsuarioBean.usuario.cpf}" mask="999.999.999-99" validateMask="true" required="true" requiredMessage="O campo CPF é obrigatório" />
+                        <p:selectBooleanCheckbox value="#{gerUsuarioBean.usuario.admin}" itemLabel="Permissão de Administrador" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="5" layout="grid">
+                        <p:commandButton value="Salvar" actionListener="#{gerUsuarioBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                        <p:commandButton value="Pesquisar" actionListener="#{gerUsuarioBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process=":form1:nome @this" />
+                        <p:commandButton value="Cancelar" actionListener="#{gerUsuarioBean.limpar()}" styleClass="btnVerde" update=":mensagem @form" process=":form1:nome @this" />
+                        <p:commandButton value="Excluir" actionListener="#{gerUsuarioBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process=":form1:nome @this" />
+                    </p:panelGrid>
                 </p:panelGrid>
             </p:panelGrid>
         </h:form>

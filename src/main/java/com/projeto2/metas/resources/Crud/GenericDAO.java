@@ -35,7 +35,7 @@ public abstract class GenericDAO<T> {
     }
 
     public void excluir(T object) {
-        em.remove(object);
+        em.remove(em.merge(object));
         em.flush();
     }
 

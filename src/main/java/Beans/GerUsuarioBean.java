@@ -39,6 +39,33 @@ public class GerUsuarioBean implements Serializable {
         }
     }
 
+    public void pesquisa() {
+        if (StringUtil.nullOrEmpty(usuario.getNome())) {
+            JsfUtil.exibeAviso("Digite o nome do usuário para pesquisar");
+            return;
+        }
+        usuario = gus.buscaObjetoUsuario(usuario.getNome());
+        if (usuario == null) {
+            JsfUtil.exibeAviso("Nenhum usuário encontrado");
+            limpar();
+            return;
+        }
+    }
+
+    public void limpar() {
+        usuario = new GerUsuario();
+    }
+
+    public void excluir() {
+        if (usuario.getCodigo() == null) {
+            JsfUtil.exibeAviso("Pesquise um usuário para excluí-lo");
+            return;
+        }
+        gus.excluir(usuario);
+        JsfUtil.exibeMensagem("Usuário excluído com sucesso");
+        limpar();
+    }
+
     public GerUsuario getUsuario() {
         return usuario;
     }
