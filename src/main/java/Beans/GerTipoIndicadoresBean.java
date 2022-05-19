@@ -61,6 +61,20 @@ public class GerTipoIndicadoresBean implements Serializable {
         JsfUtil.exibeMensagem("Registro removido com sucesso");
     }
 
+    public void cancela() {
+        tipoIndicadores = new GerTipoIndicadores();
+    }
+
+    public void excluir() {
+        if (tipoIndicadores.getTpiCod() == null) {
+            JsfUtil.exibeAviso("Pesquise um Indicador para excluí-lo");
+            return;
+        }
+        gti.excluir(tipoIndicadores);
+        JsfUtil.exibeMensagem("Indicador excluído com sucesso");
+        cancela();
+    }
+
     public GerTipoIndicadores getTipoIndicadores() {
         return tipoIndicadores;
     }

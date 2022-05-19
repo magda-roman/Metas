@@ -13,12 +13,15 @@ import Services.MovIndicadoresService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import utils.JsfUtil;
+import utils.StringUtil;
 
 /**
  *
@@ -50,6 +53,24 @@ public class MovIndicadoresBean implements Serializable {
         } catch (Exception e) {
             JsfUtil.fatal("Falha no cadastro");
         }
+    }
+
+    public void pesquisa() {
+        //fazerr
+    }
+
+    public void cancela() {
+        movIndicadores = new MovIndicadores();
+    }
+
+    public void excluir() {
+        if (movIndicadores.getMovCod() == null) {
+            JsfUtil.exibeAviso("Pesquise um Movimento para excluí-lo");
+            return;
+        }
+        mis.excluir(movIndicadores);
+        JsfUtil.exibeMensagem("Movimento excluído com sucesso");
+        cancela();
     }
 
     public void atualizaPercentual(MovIndXTipos mov) {

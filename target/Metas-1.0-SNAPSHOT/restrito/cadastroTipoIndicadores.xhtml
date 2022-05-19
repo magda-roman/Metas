@@ -56,8 +56,10 @@
                 <br />
 
                 <p:panelGrid columns="5" layout="grid">
-                    <p:commandButton value="salvar" actionListener="#{gerTipoIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                    <p:commandButton value="Pesquisar" actionListener="#{gerTipoIndicadoresBean.pesquisa()}" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Salvar" actionListener="#{gerTipoIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Pesquisar" actionListener="#{gerTipoIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{gerTipoIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Excluir" actionListener="#{gerTipoIndicadoresBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process="@form" />
                 </p:panelGrid>
             </p:panelGrid>
         </h:form>
