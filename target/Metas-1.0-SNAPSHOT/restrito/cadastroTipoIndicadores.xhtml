@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Cadastro de Usuario</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet library="css" name="geral.css" />
-    </h:head>
-    <h:body>
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo-pagina">Cadastro de Usuario</ui:define>
+
+    <ui:define name="conteudo">
         <p:growl id="mensagem" showDetail="true" />
         <h:form id="form1">
             <p:panelGrid columns="3" layout="grid">
@@ -29,7 +29,7 @@
             <p:panelGrid columns="1" layout="grid">
                 <p:dataTable id="tabFaixas" value="#{gerTipoIndicadoresBean.tipoIndicadores.tpIndXFaixas}" var="ixf" rowIndexVar="ixfIndex">
                     <f:facet name="header">
-                        <p:commandButton value="adicionar" style="background-color: #28a571"
+                        <p:commandButton value="adicionar"
                                          actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
                     </f:facet>
                     <p:column headerText="Faixa Inicial">
@@ -56,10 +56,10 @@
                 <br />
 
                 <p:panelGrid columns="5" layout="grid">
-                    <p:commandButton value="salvar" actionListener="#{gerTipoIndicadoresBean.salva()}" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="salvar" actionListener="#{gerTipoIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
                     <p:commandButton value="Pesquisar" actionListener="#{gerTipoIndicadoresBean.pesquisa()}" update=":mensagem @form" process="@form" />
                 </p:panelGrid>
             </p:panelGrid>
         </h:form>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

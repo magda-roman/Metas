@@ -9,3 +9,11 @@ body .ui-panelgrid .ui-panelgrid-cell{
 body .ui-panelgrid{
     background-color: #e5e5e5;
 }
+
+.btnVerde{
+    background-color: #3b933b !important;
+}
+
+.btnVermelho{
+    background-color: #a12626 !important;
+}
