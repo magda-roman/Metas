@@ -47,11 +47,12 @@
 
                 <br />
 
-                <p:commandButton value="Salvar" actionListener="#{movIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                <p:commandButton value="Pesquisar" actionListener="#{movIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                <p:commandButton value="Cancelar" actionListener="#{movIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                <p:commandButton value="Excluir" actionListener="#{movIndicadoresBean.excluir()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-
+                <p:panelGrid columns="5" layout="grid">
+                    <p:commandButton value="Salvar" actionListener="#{movIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Pesquisar" actionListener="#{movIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{movIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Excluir" actionListener="#{movIndicadoresBean.excluir()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                </p:panelGrid>
             </p:panelGrid>
         </h:form>
     </ui:define>
