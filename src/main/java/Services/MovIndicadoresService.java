@@ -5,11 +5,14 @@
 package Services;
 
 import Classes.GerTipoIndicadores;
+import Classes.MovIndXTipos;
 import Classes.MovIndicadores;
 import com.projeto2.metas.resources.Crud.GenericDAO;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import utils.DateUtil;
 
 /**
  *
@@ -37,5 +40,10 @@ public class MovIndicadoresService extends GenericDAO<MovIndicadores> {
             tiIndRetorno = mviList.get(0);
         }
         return tiIndRetorno;
+    }
+
+    public List<MovIndicadores> buscaMovimentosPorPeriodo(Date dataIni, Date dataFim) {
+        return super.executeNativeQuery("SELECT * FROM  MOV_INDICADORES MI"
+                + " WHERE MI.MOV_DTHR >= " + DateUtil.dataFirebird(dataIni) + " AND MI.MOV_DTHR <= " + DateUtil.dataFirebird(dataFim), MovIndicadores.class);
     }
 }

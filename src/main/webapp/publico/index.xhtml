@@ -10,6 +10,22 @@
     <ui:define name="conteudo">
         <h:form id="form1">
             <p:growl id="mensagem" showDetail="true" />
+
+            <p:panelGrid columns="5" layout="grid">
+                <p:panelGrid columns="1" layout="grid">
+                    <p:outputLabel value="Data Inicial" />
+                    <p:calendar value="#{indexBean.dataIni}"  required="true" requiredMessage="O campo Data Inicial é obrigatório" showOn="button"/>
+                </p:panelGrid>
+                <p:panelGrid columns="1" layout="grid">
+                    <p:outputLabel value="Data Final" />
+                    <p:calendar value="#{indexBean.dataFim}"  required="true" requiredMessage="O campo Data Inicial é obrigatório" showOn="button"/>
+                </p:panelGrid>
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid">
+                <p:commandButton value="Pesquisar" actionListener="#{indexBean.pesquisar()}" process="@form" update="@form" />
+            </p:panelGrid>
+
             <div class="card">
                 <div class="p-grid">
                     <p:repeat value="#{indexBean.lineModel1}" var="valores" >

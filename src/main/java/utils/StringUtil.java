@@ -4,6 +4,8 @@
  */
 package utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  *
  * @author edumokfa
@@ -48,7 +50,7 @@ public class StringUtil {
         String ret = "" + (char) d2 + (char) d1;
         return ret;
     }
-    
+
     @SuppressWarnings("UnusedAssignment")
     public static boolean ValidaCNPJCPF(String sCnpjCpf) {
         if (sCnpjCpf == null) {
@@ -164,5 +166,9 @@ public class StringUtil {
             return false;
         }
         return true;
+    }
+
+    public static String leftPad(String str, String preenchimento, int tamanho) {
+        return StringUtils.leftPad(str, tamanho, preenchimento);
     }
 }

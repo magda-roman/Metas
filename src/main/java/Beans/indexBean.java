@@ -4,14 +4,20 @@
  */
 package Beans;
 
+import Classes.MovIndXTipos;
+import Classes.MovIndicadores;
+import Services.MovIndicadoresService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+import utils.DateUtil;
 
 /**
  *
@@ -21,37 +27,31 @@ import org.primefaces.model.chart.LineChartSeries;
 @ViewScoped
 public class indexBean implements Serializable {
 
+    @EJB
+    private MovIndicadoresService mis;
+
     private List<LineChartModel> lineModel1 = new ArrayList<>();
+    private Date dataIni = new Date();
+    private Date dataFim = new Date();
 
     @PostConstruct
     public void init() {
-        LineChartModel lineModel = new LineChartModel();
-        LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Series 1");
+        dataFim = DateUtil.adicionaDias(dataFim, 30);
+        pesquisar();
+    }
 
-        series1.set(1, 2);
-        series1.set(2, 1);
-        series1.set(3, 3);
-        series1.set(4, 6);
-        series1.set(5, 8);
-        lineModel.addSeries(series1);
+    public void pesquisar() {
+        List<MovIndicadores> movIndList = mis.buscaMovimentosPorPeriodo(dataIni, dataFim);
 
-        LineChartModel lineMode2 = new LineChartModel();
-        LineChartSeries series2 = new LineChartSeries();
-        series1.setLabel("Series 2");
-
-        series2.set(25, 25);
-        series2.set(30, 30);
-        series2.set(35, 35);
-        series2.set(40, 40);
-        series2.set(45, 45);
-        series2.set(50, 50);
-        lineMode2.addSeries(series2);
-        lineModel1.add(lineModel);
-        lineModel1.add(lineMode2);
-        lineModel1.add(lineMode2);
-        lineModel1.add(lineMode2);
-        lineModel1.add(lineMode2);
+        for (MovIndicadores movIndicadores : movIndList) {
+            LineChartModel lineModel = new LineChartModel();
+            LineChartSeries series = new LineChartSeries();
+            for (MovIndXTipos movIndXTipo : movIndicadores.getMovIndXTipos()) {
+                series.set(movIndXTipo.getMviVlrResultado(), movIndXTipo.getMviPercCalculado());
+            }
+            lineModel.addSeries(series);
+            lineModel1.add(lineModel);
+        }
     }
 
     public List<LineChartModel> getLineModel1() {
@@ -61,4 +61,21 @@ public class indexBean implements Serializable {
     public void setLineModel1(List<LineChartModel> lineModel1) {
         this.lineModel1 = lineModel1;
     }
+
+    public Date getDataIni() {
+        return dataIni;
+    }
+
+    public void setDataIni(Date dataIni) {
+        this.dataIni = dataIni;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+
 }
