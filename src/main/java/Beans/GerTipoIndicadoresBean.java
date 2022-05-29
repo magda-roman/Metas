@@ -8,8 +8,12 @@ import Classes.GerTipoIndXFaixas;
 import Classes.GerTipoIndicadores;
 import Services.GerTipoIndicadoresService;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -28,6 +32,15 @@ public class GerTipoIndicadoresBean implements Serializable {
     GerTipoIndicadoresService gti;
 
     private GerTipoIndicadores tipoIndicadores = new GerTipoIndicadores();
+    private List<GerTipoIndicadores> tipoIndicadoresList = new ArrayList<>();
+
+    public void pesquisa() {
+        Map<String, Object> filtros = new HashMap<>();
+        filtros.put("tpiAtivo", true);
+        tipoIndicadoresList = gti.filtrar(filtros);
+        JsfUtil.showDlg("dlgBscIndicadores");
+        JsfUtil.primeFacesUpdate("form1:tabInd");
+    }
 
     public void salva() {
         try {
@@ -37,16 +50,6 @@ public class GerTipoIndicadoresBean implements Serializable {
         } catch (Exception e) {
             JsfUtil.fatal("Falha no cadastro");
         }
-    }
-
-    public void pesquisa() {
-        if (StringUtil.nullOrEmpty(tipoIndicadores.getTpiDesc())) {
-            JsfUtil.exibeAviso("Digite uma descrição para pesquisar");
-            return;
-        }
-        Map<String, Object> filtros = new HashMap<>();
-        filtros.put("tpiDesc", tipoIndicadores.getTpiDesc());
-        tipoIndicadores = gti.filtrar(filtros).get(0);
     }
 
     public void adiciona() {
@@ -75,11 +78,33 @@ public class GerTipoIndicadoresBean implements Serializable {
         cancela();
     }
 
+    public void selecionaTpInd(GerTipoIndicadores tipoInd) {
+        tipoIndicadores = tipoInd;
+        JsfUtil.exibeMensagem("Registro selecionado com sucesso");
+        JsfUtil.hideDlg("dlgBscIndicadores");
+    }
+
     public GerTipoIndicadores getTipoIndicadores() {
         return tipoIndicadores;
     }
 
     public void setTipoIndicadores(GerTipoIndicadores tipoIndicadores) {
         this.tipoIndicadores = tipoIndicadores;
+    }
+
+    public GerTipoIndicadoresService getGti() {
+        return gti;
+    }
+
+    public void setGti(GerTipoIndicadoresService gti) {
+        this.gti = gti;
+    }
+
+    public List<GerTipoIndicadores> getTipoIndicadoresList() {
+        return tipoIndicadoresList;
+    }
+
+    public void setTipoIndicadoresList(List<GerTipoIndicadores> tipoIndicadoresList) {
+        this.tipoIndicadoresList = tipoIndicadoresList;
     }
 }

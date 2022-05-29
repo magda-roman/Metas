@@ -17,3 +17,10 @@ body .ui-panelgrid{
 .btnVermelho{
     background-color: #a12626 !important;
 }
+
+body .ui-datatable .ui-datatable-data > tr > td {
+    padding: 6px !important;
+}
+body .ui-datatable .ui-paginator.ui-paginator-top{
+    display: none;
+}

@@ -6,6 +6,7 @@ package Beans;
 
 import Classes.GerTipoIndXFaixas;
 import Classes.GerTipoIndicadores;
+import Classes.GerUsuario;
 import Classes.MovIndXTipos;
 import Classes.MovIndicadores;
 import Services.GerTipoIndicadoresService;
@@ -21,7 +22,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import utils.JsfUtil;
-import utils.StringUtil;
+import utils.SecUtil;
 
 /**
  *
@@ -39,10 +40,15 @@ public class MovIndicadoresBean implements Serializable {
     private MovIndicadores movIndicadores = new MovIndicadores();
     private GerTipoIndicadores tpInd;
     private Integer codTpInd;
+    private List<GerTipoIndicadores> tipoIndicadoresList = new ArrayList<>();
 
     @PostConstruct
     private void init() {
         movIndicadores.setMovDtHr(new Date());
+
+        Map<String, Object> filtros = new HashMap<>();
+        filtros.put("tpiAtivo", true);
+        tipoIndicadoresList = gti.filtrar(filtros);
     }
 
     public void salva() {
@@ -93,17 +99,6 @@ public class MovIndicadoresBean implements Serializable {
         return retorno;
     }
 
-    public void adiciona() {
-        if (tpInd == null) {
-            JsfUtil.exibeAviso("Selecione um tipo de indicador");
-            return;
-        }
-        MovIndXTipos mixt = new MovIndXTipos();
-        mixt.setMviCodIndi(movIndicadores);
-        movIndicadores.getMovIndXTipos().add(mixt);
-        JsfUtil.exibeMensagem("Registro adicionado com sucesso");
-    }
-
     public void remove(int index) {
         movIndicadores.getMovIndXTipos().remove(index);
         JsfUtil.exibeMensagem("Registro removido com sucesso");
@@ -123,6 +118,16 @@ public class MovIndicadoresBean implements Serializable {
             retorno = tpInd.getTpiDesc();
         }
         return retorno;
+    }
+
+    public void selecionaTpInd(GerTipoIndicadores tipoInd) {
+        tpInd = tipoInd;
+        MovIndXTipos mixt = new MovIndXTipos();
+        mixt.setMviCodIndi(movIndicadores);
+        mixt.setMviCodTipo(tpInd);
+        movIndicadores.getMovIndXTipos().add(mixt);
+        JsfUtil.exibeMensagem("Registro adicionado com sucesso");
+        JsfUtil.hideDlg("dlgBscIndicadores");
     }
 
     public MovIndicadores getMovIndicadores() {
@@ -147,5 +152,13 @@ public class MovIndicadoresBean implements Serializable {
 
     public void setCodTpInd(Integer codTpInd) {
         this.codTpInd = codTpInd;
+    }
+
+    public List<GerTipoIndicadores> getTipoIndicadoresList() {
+        return tipoIndicadoresList;
+    }
+
+    public void setTipoIndicadoresList(List<GerTipoIndicadores> tipoIndicadoresList) {
+        this.tipoIndicadoresList = tipoIndicadoresList;
     }
 }
