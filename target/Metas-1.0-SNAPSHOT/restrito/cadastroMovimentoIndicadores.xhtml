@@ -19,7 +19,7 @@
             </p:panelGrid>
 
             <p:panelGrid columns="1" layout="grid">
-                <p:commandButton value="adicionar" onclick="PF('dlgBscIndicadores').show();" update=":mensagem :form1:tabMovimentos" process="@this" />
+                <p:commandButton value="adicionar" actionListener="#{movIndicadoresBean.pesquisaIndicadores()}" update=":mensagem :form1:tabMovimentos :form1:tabInd" process="@this" />
                 <p:dataTable id="tabMovimentos" value="#{movIndicadoresBean.movIndicadores.movIndXTipos}" var="mixf" rowIndexVar="mixfIndex">
                     <p:column headerText="Tipo de indicador">
                         <p:outputLabel value="#{mixf.mviCodTipo.tpiDesc}" />
@@ -45,17 +45,28 @@
                     <p:commandButton value="Salvar" actionListener="#{movIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
                     <p:commandButton value="Pesquisar" actionListener="#{movIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
                     <p:commandButton value="Cancelar" actionListener="#{movIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                    <p:commandButton value="Excluir" actionListener="#{movIndicadoresBean.excluir()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Excluir" actionListener="#{movIndicadoresBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process="@form" />
                 </p:panelGrid>
             </p:panelGrid>
 
-            <p:dialog widgetVar="dlgBscIndicadores" header="Busca de indicadores">
+            <p:dialog widgetVar="dlgBscIndicadores" header="Busca de indicadores" width="600">
                 <p:dataTable id="tabInd" value="#{movIndicadoresBean.tipoIndicadoresList}" paginator="true" rows="5" var="tpi" rowIndexVar="tpiIndex">
                     <p:column headerText="Descrição">
                         <p:outputLabel value="#{tpi.tpiDesc}" />
                     </p:column>
-                    <p:column headerText="Ação">
+                    <p:column headerText="Ação" width="120">
                         <p:commandButton value="Selecionar" actionListener="#{movIndicadoresBean.selecionaTpInd(tpi)}" update=":mensagem @form" process="@form" />
+                    </p:column>
+                </p:dataTable>
+            </p:dialog>
+
+            <p:dialog widgetVar="dlgBscMovimentos" header="Busca de movimentos" width="600">
+                <p:dataTable id="tabMov" value="#{movIndicadoresBean.movIndicadoresList}" paginator="true" rows="5" var="tpmv">
+                    <p:column headerText="Data">
+                        <p:outputLabel value="#{tpmv.dtHrFormatada}" />
+                    </p:column>
+                    <p:column headerText="Ação" width="120">
+                        <p:commandButton value="Selecionar" actionListener="#{movIndicadoresBean.selecionaMovimento(tpmv)}" update=":mensagem @form" process="@form" />
                     </p:column>
                 </p:dataTable>
             </p:dialog>

@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
+import utils.DateUtil;
 
 /**
  *
@@ -63,6 +64,10 @@ public class MovIndicadores implements Serializable {
 
     public void setMovIndXTipos(List<MovIndXTipos> movIndXTipos) {
         this.movIndXTipos = movIndXTipos;
+    }
+
+    public String getDtHrFormatada() {
+        return DateUtil.dataFormatada(movDtHr);
     }
 
     @Override

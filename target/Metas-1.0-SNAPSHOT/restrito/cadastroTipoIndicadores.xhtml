@@ -61,12 +61,12 @@
                 </p:panelGrid>
             </p:panelGrid>
 
-            <p:dialog widgetVar="dlgBscIndicadores" header="Busca de indicadores">
+            <p:dialog widgetVar="dlgBscIndicadores" header="Busca de indicadores" width="600">
                 <p:dataTable id="tabInd" value="#{gerTipoIndicadoresBean.tipoIndicadoresList}" paginator="true" rows="5" var="tpi" rowIndexVar="tpiIndex">
                     <p:column headerText="Descrição">
                         <p:outputLabel value="#{tpi.tpiDesc}" />
                     </p:column>
-                    <p:column headerText="Ação">
+                    <p:column headerText="Ação" width="120">
                         <p:commandButton value="Selecionar" actionListener="#{gerTipoIndicadoresBean.selecionaTpInd(tpi)}" update=":mensagem @form" process="@this" />
                     </p:column>
                 </p:dataTable>

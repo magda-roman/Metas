@@ -6,7 +6,6 @@ package Beans;
 
 import Classes.GerTipoIndXFaixas;
 import Classes.GerTipoIndicadores;
-import Classes.GerUsuario;
 import Classes.MovIndXTipos;
 import Classes.MovIndicadores;
 import Services.GerTipoIndicadoresService;
@@ -22,7 +21,6 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import utils.JsfUtil;
-import utils.SecUtil;
 
 /**
  *
@@ -41,14 +39,28 @@ public class MovIndicadoresBean implements Serializable {
     private GerTipoIndicadores tpInd;
     private Integer codTpInd;
     private List<GerTipoIndicadores> tipoIndicadoresList = new ArrayList<>();
+    private List<MovIndicadores> movIndicadoresList = new ArrayList<>();
 
     @PostConstruct
     private void init() {
         movIndicadores.setMovDtHr(new Date());
+    }
 
+    public void pesquisaIndicadores() {
         Map<String, Object> filtros = new HashMap<>();
         filtros.put("tpiAtivo", true);
         tipoIndicadoresList = gti.filtrar(filtros);
+        JsfUtil.showDlg("dlgBscIndicadores");
+    }
+
+    public void selecionaMovimento(MovIndicadores mvInd) {
+        movIndicadores = mvInd;
+    }
+
+    public void pesquisa() {
+        Map<String, Object> filtros = new HashMap<>();
+        movIndicadoresList = mis.buscaMovimentosPorPeriodo(movIndicadores.getMovDtHr(), movIndicadores.getMovDtHr());
+        JsfUtil.showDlg("dlgBscMovimentos");
     }
 
     public void salva() {
@@ -56,13 +68,10 @@ public class MovIndicadoresBean implements Serializable {
             mis.salvar(movIndicadores);
             JsfUtil.exibeMensagem("Sucesso");
             movIndicadores = new MovIndicadores();
+            movIndicadores.setMovDtHr(new Date());
         } catch (Exception e) {
             JsfUtil.fatal("Falha no cadastro");
         }
-    }
-
-    public void pesquisa() {
-        //fazerr
     }
 
     public void cancela() {
@@ -160,5 +169,13 @@ public class MovIndicadoresBean implements Serializable {
 
     public void setTipoIndicadoresList(List<GerTipoIndicadores> tipoIndicadoresList) {
         this.tipoIndicadoresList = tipoIndicadoresList;
+    }
+
+    public List<MovIndicadores> getMovIndicadoresList() {
+        return movIndicadoresList;
+    }
+
+    public void setMovIndicadoresList(List<MovIndicadores> movIndicadoresList) {
+        this.movIndicadoresList = movIndicadoresList;
     }
 }
