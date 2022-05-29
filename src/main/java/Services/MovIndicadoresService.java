@@ -5,7 +5,6 @@
 package Services;
 
 import Classes.GerTipoIndicadores;
-import Classes.MovIndXTipos;
 import Classes.MovIndicadores;
 import com.projeto2.metas.resources.Crud.GenericDAO;
 import java.util.Date;

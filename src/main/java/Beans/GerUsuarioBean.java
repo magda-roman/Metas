@@ -25,7 +25,8 @@ public class GerUsuarioBean implements Serializable {
 
     public void salva() {
         try {
-            if (!StringUtil.ValidaCNPJCPF(usuario.getCpf())) {
+            usuario.setCpf(StringUtil.onlyNumbers(usuario.getCpf()));
+            if (!StringUtil.isCPF(usuario.getCpf())) {
                 JsfUtil.exibeErro("CPF inválido");
                 return;
             }

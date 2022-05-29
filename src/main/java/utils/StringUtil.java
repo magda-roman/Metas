@@ -4,6 +4,7 @@
  */
 package utils;
 
+import java.util.InputMismatchException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -29,6 +30,10 @@ public class StringUtil {
         return (sOut);
     }
 
+    public static String onlyNumbers(String entrada) {
+        return entrada.replaceAll("[\\D]", "");
+    }
+
     public static String HexToStr(String sHexa) {
         int i = 0;
         int x = 0;
@@ -51,121 +56,66 @@ public class StringUtil {
         return ret;
     }
 
-    @SuppressWarnings("UnusedAssignment")
-    public static boolean ValidaCNPJCPF(String sCnpjCpf) {
-        if (sCnpjCpf == null) {
-            return true;
-        } else if (sCnpjCpf.length() == 11) {
-            int d1, d2;
-            int digito1, digito2, resto;
-            int digitoCPF;
-            String nDigResult;
-            String strCpf = sCnpjCpf;
-
-            if (strCpf.equals("00000000000") || strCpf.equals("11111111111")
-                    || strCpf.equals("22222222222") || strCpf.equals("33333333333")
-                    || strCpf.equals("44444444444") || strCpf.equals("55555555555")
-                    || strCpf.equals("66666666666") || strCpf.equals("77777777777")
-                    || strCpf.equals("88888888888") || strCpf.equals("99999999999")) {
-                return false;
-            }
-
-            d1 = d2 = 0;
-            digito1 = digito2 = resto = 0;
-
-            for (int nCount = 1; nCount < strCpf.length() - 1; nCount++) {
-                digitoCPF = Integer.valueOf(strCpf.substring(nCount - 1,
-                        nCount));
-
-                //multiplique a ultima casa por 2 a seguinte por 3 a
-                //seguinte por 4 e assim por diante.
-                d1 = d1 + (11 - nCount) * digitoCPF;
-
-                //para o segundo digito repita o procedimento incluindo
-                //o primeiro digito calculado no passo anterior.
-                d2 = d2 + (12 - nCount) * digitoCPF;
-            }
-            //Primeiro resto da divisão por 11.
-            resto = (d1 % 11);
-
-            //Se o resultado for 0 ou 1 o digito 0 caso contrário o digito
-            //11 menos o resultado anterior.
-            if (resto < 2) {
-                digito1 = 0;
-            } else {
-                digito1 = 11 - resto;
-            }
-
-            d2 += 2 * digito1;
-
-            //Segundo resto da divisão por 11.
-            resto = (d2 % 11);
-
-            //Se o resultado for 0 ou 1 o digito 0 caso contrário o digito
-            //11 menos o resultado anterior.
-            if (resto < 2) {
-                digito2 = 0;
-            } else {
-                digito2 = 11 - resto;
-            }
-
-            //Digito verificador do CPF que está sendo validado.
-            String nDigVerific = strCpf.substring(strCpf.length() - 2, strCpf.length());
-
-            //Concatenando o primeiro resto com o segundo.
-            nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
-
-            //comparar o digito verificador do cpf com o
-            //primeiro resto + o segundo resto.
-            if (!(nDigVerific.equals(nDigResult))) {
-                return false;
-            }
-        } else if (sCnpjCpf.length() == 14) {
-            if (sCnpjCpf.equals("00000000000000")) {
-                return false;
-            }
-            String str_cnpj = sCnpjCpf;
-            int soma = 0, aux, dig;
-            String cnpj_calc = str_cnpj.substring(0, 12);
-            char[] chr_cnpj = str_cnpj.toCharArray();
-
-            /* Primeira parte */
-            for (int i = 0; i < 4; i++) {
-                if (chr_cnpj[i] - 48 >= 0 && chr_cnpj[i] - 48 <= 9) {
-                    soma += (chr_cnpj[i] - 48) * (6 - (i + 1));
-                }
-            }
-            for (int i = 0; i < 8; i++) {
-                if (chr_cnpj[i + 4] - 48 >= 0 && chr_cnpj[i + 4] - 48 <= 9) {
-                    soma += (chr_cnpj[i + 4] - 48) * (10 - (i + 1));
-                }
-            }
-            dig = 11 - (soma % 11);
-            cnpj_calc += (dig == 10 || dig == 11)
-                    ? "0" : Integer.toString(dig);
-
-            /* Segunda parte */
-            soma = 0;
-            for (int i = 0; i < 5; i++) {
-                if (chr_cnpj[i] - 48 >= 0 && chr_cnpj[i] - 48 <= 9) {
-                    soma += (chr_cnpj[i] - 48) * (7 - (i + 1));
-                }
-            }
-            for (int i = 0; i < 8; i++) {
-                if (chr_cnpj[i + 5] - 48 >= 0 && chr_cnpj[i + 5] - 48 <= 9) {
-                    soma += (chr_cnpj[i + 5] - 48) * (10 - (i + 1));
-                }
-            }
-            dig = 11 - (soma % 11);
-            cnpj_calc += (dig == 10 || dig == 11)
-                    ? "0" : Integer.toString(dig);
-            if (!str_cnpj.equals(cnpj_calc)) {
-                return false;
-            }
-        } else {
-            return false;
+    public static boolean isCPF(String CPF) {
+        // considera-se erro CPF's formados por uma sequencia de numeros iguais
+        if (CPF.equals("00000000000")
+                || CPF.equals("11111111111")
+                || CPF.equals("22222222222") || CPF.equals("33333333333")
+                || CPF.equals("44444444444") || CPF.equals("55555555555")
+                || CPF.equals("66666666666") || CPF.equals("77777777777")
+                || CPF.equals("88888888888") || CPF.equals("99999999999")
+                || (CPF.length() != 11)) {
+            return (false);
         }
-        return true;
+
+        char dig10, dig11;
+        int sm, i, r, num, peso;
+
+        // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
+        try {
+            // Calculo do 1o. Digito Verificador
+            sm = 0;
+            peso = 10;
+            for (i = 0; i < 9; i++) {
+                // converte o i-esimo caractere do CPF em um numero:
+                // por exemplo, transforma o caractere '0' no inteiro 0
+                // (48 eh a posicao de '0' na tabela ASCII)
+                num = (int) (CPF.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig10 = '0';
+            } else {
+                dig10 = (char) (r + 48); // converte no respectivo caractere numerico
+            }
+            // Calculo do 2o. Digito Verificador
+            sm = 0;
+            peso = 11;
+            for (i = 0; i < 10; i++) {
+                num = (int) (CPF.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig11 = '0';
+            } else {
+                dig11 = (char) (r + 48);
+            }
+
+            // Verifica se os digitos calculados conferem com os digitos informados.
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
+                return (true);
+            } else {
+                return (false);
+            }
+        } catch (InputMismatchException erro) {
+            return (false);
+        }
     }
 
     public static String leftPad(String str, String preenchimento, int tamanho) {

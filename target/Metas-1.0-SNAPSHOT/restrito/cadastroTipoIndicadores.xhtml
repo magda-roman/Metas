@@ -27,11 +27,9 @@
 
 
             <p:panelGrid columns="1" layout="grid">
+                <p:commandButton value="adicionar"
+                                 actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
                 <p:dataTable id="tabFaixas" value="#{gerTipoIndicadoresBean.tipoIndicadores.tpIndXFaixas}" var="ixf" rowIndexVar="ixfIndex">
-                    <f:facet name="header">
-                        <p:commandButton value="adicionar"
-                                         actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
-                    </f:facet>
                     <p:column headerText="Faixa Inicial">
                         <p:inputNumber value="#{ixf.tpfFaixaIni}" >
                             <p:ajax />
