@@ -4,10 +4,10 @@
 */
 body .ui-panelgrid .ui-panelgrid-cell{
     padding: 6px;
-    background-color: #e5e5e5;
+    /*background-color: #e5e5e5;*/
 }
 body .ui-panelgrid{
-    background-color: #e5e5e5;
+    /*background-color: #e5e5e5;*/
 }
 
 .btnVerde{

@@ -4,6 +4,7 @@ import Classes.MovIndXTipos;
 import Classes.MovIndicadores;
 import Services.MovIndicadoresService;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,16 +45,15 @@ public class indexBean implements Serializable {
 
     public void pesquisar() {
         List<MovIndicadores> movIndList = mis.buscaMovimentosPorPeriodo(dataIni, dataFim);
+        NumberFormat z = NumberFormat.getInstance();
+
         for (MovIndicadores movIndicadores : movIndList) {
             Map<Integer, String> legenda = new TreeMap<>();
 
             BarChartModel barModel = new BarChartModel();
             ChartSeries series = new ChartSeries();
             for (MovIndXTipos movIndXTipo : movIndicadores.getMovIndXTipos()) {
-                String resultado = movIndXTipo.getMviVlrResultado().toString();
-                if (resultado.contains(".0")) {
-                    resultado = resultado.replace(".0", "");
-                }
+                String resultado = z.format(movIndXTipo.getMviVlrResultado());
                 if (legenda.isEmpty()) {
                     legenda.put(1, movIndXTipo.getMviCodTipo().getTpiDesc() + " (" + resultado + ")");
                 } else {
