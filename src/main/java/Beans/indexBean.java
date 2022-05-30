@@ -44,6 +44,7 @@ public class indexBean implements Serializable {
     }
 
     public void pesquisar() {
+        graficoXLegenda.clear();
         List<MovIndicadores> movIndList = mis.buscaMovimentosPorPeriodo(dataIni, dataFim);
         NumberFormat z = NumberFormat.getInstance();
 
