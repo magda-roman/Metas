@@ -28,17 +28,21 @@
 
             <div class="card">
                 <div class="p-grid">
-                    <p:repeat value="#{indexBean.lineModel1}" var="valores" >
-                        <div class="pp-col-4">
+                    <p:repeat value="#{indexBean.graficoXLegenda}" var="valores" >
+                        <div class="p-col-4">
                             <div class="box">
                                 <p:panelGrid columns="1" layout="grid">
-                                    <p:chart type="line" model="#{valores}" style="height:300px;"/>
+                                    <p:chart type="bar" model="#{valores.barModel}" style="height:300px;"/>
+                                    <p:outputLabel value="#{valores.legenda}" escape="false" />
                                 </p:panelGrid>
                             </div>
                         </div>
                     </p:repeat>
                 </div>
             </div>
+
+
+
         </h:form>
     </ui:define>
 </ui:composition>

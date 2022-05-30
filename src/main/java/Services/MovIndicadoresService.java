@@ -30,10 +30,10 @@ public class MovIndicadoresService extends GenericDAO<MovIndicadores> {
         return super.busca(MovIndicadores.class, id);
     }
 
-    public GerTipoIndicadores buscaIndicadorPorValor(Double valor) {
+    public GerTipoIndicadores buscaIndicadorPorValor(Double valor, Integer tpiCod) {
         List<GerTipoIndicadores> mviList = super.executeNativeQuery("SELECT FIRST 1 * FROM GER_TIPO_INDICADORES GTI "
                 + "LEFT JOIN GER_TIPO_INDXFAIXAS GTXF ON GTXF.TPF_CODTIPO = GTI.TPI_COD "
-                + "WHERE GTXF.TPF_FAIXA_INI <= " + valor + " AND GTXF.TPF_FAIXA_FIM >= " + valor, GerTipoIndicadores.class);
+                + "WHERE GTI.TPI_COD = " + tpiCod + " AND GTXF.TPF_FAIXA_INI <= " + valor + " AND GTXF.TPF_FAIXA_FIM >= " + valor, GerTipoIndicadores.class);
         GerTipoIndicadores tiIndRetorno = new GerTipoIndicadores();
         if (mviList != null && !mviList.isEmpty()) {
             tiIndRetorno = mviList.get(0);

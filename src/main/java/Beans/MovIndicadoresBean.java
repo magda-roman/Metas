@@ -21,6 +21,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import utils.JsfUtil;
+import utils.ListUtil;
 
 /**
  *
@@ -58,8 +59,7 @@ public class MovIndicadoresBean implements Serializable {
     }
 
     public void pesquisa() {
-        Map<String, Object> filtros = new HashMap<>();
-        movIndicadoresList = mis.buscaMovimentosPorPeriodo(movIndicadores.getMovDtHr(), movIndicadores.getMovDtHr());
+        movIndicadoresList = mis.buscaLista();
         JsfUtil.showDlg("dlgBscMovimentos");
     }
 
@@ -90,7 +90,11 @@ public class MovIndicadoresBean implements Serializable {
 
     public void atualizaPercentual(MovIndXTipos mov) {
         if (mov.getMviVlrResultado() != null) {
-            GerTipoIndicadores tpind = mis.buscaIndicadorPorValor(mov.getMviVlrResultado());
+            GerTipoIndicadores tpind = mis.buscaIndicadorPorValor(mov.getMviVlrResultado(), mov.getMviCodTipo().getTpiCod());
+            if (tpind == null || tpind.getTpiCod() == null) {
+                JsfUtil.exibeAviso("Não foi possível calcular um percentual para este valor");
+                return;
+            }
             mov.setMviCodTipo(tpind);
             mov.setMviPercCalculado(buscaFaixaPorValor(tpind.getTpIndXFaixas(), mov.getMviVlrResultado()).getTpfPercPremiacao());
         } else {
@@ -130,6 +134,14 @@ public class MovIndicadoresBean implements Serializable {
     }
 
     public void selecionaTpInd(GerTipoIndicadores tipoInd) {
+        if (ListUtil.isNotEmpty(movIndicadores.getMovIndXTipos())) {
+            for (MovIndXTipos mixt : movIndicadores.getMovIndXTipos()) {
+                if (mixt.getMviCodTipo().equals(tipoInd)) {
+                    JsfUtil.exibeAviso("Este tipo de indicador já foi adicionado na lista");
+                    return;
+                }
+            }
+        }
         tpInd = tipoInd;
         MovIndXTipos mixt = new MovIndXTipos();
         mixt.setMviCodIndi(movIndicadores);

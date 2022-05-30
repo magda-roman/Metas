@@ -25,13 +25,14 @@
                         <p:outputLabel value="#{mixf.mviCodTipo.tpiDesc}" />
                     </p:column>
                     <p:column headerText="Valor atual">
-                        <p:inputNumber value="#{mixf.mviVlrResultado}" required="true" requiredMessage="O campo Valor Atual é obrigatório" >
-                            <p:ajax listener="#{movIndicadoresBean.atualizaPercentual(mixf)}" update=":form1:tabMovimentos" />
-                        </p:inputNumber>
+                        <p:inputText value="#{mixf.mviVlrResultado}" required="true" requiredMessage="O campo Valor Atual é obrigatório" >
+                            <p:keyFilter mask="num"/>
+                            <p:ajax listener="#{movIndicadoresBean.atualizaPercentual(mixf)}" update=":form1:tabMovimentos :mensagem" />
+                        </p:inputText>
                     </p:column>
                     <p:column headerText="Percentual calculado">
                         <p:inputText value="#{mixf.mviPercCalculado}" maxlength="3" >
-                            <p:keyFilter mask="pint" />
+                            <p:keyFilter mask="num" />
                         </p:inputText>
                     </p:column>
                     <p:column headerText="Ação" width="90">
@@ -43,8 +44,8 @@
 
                 <p:panelGrid columns="5" layout="grid">
                     <p:commandButton value="Salvar" actionListener="#{movIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                    <p:commandButton value="Pesquisar" actionListener="#{movIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                    <p:commandButton value="Cancelar" actionListener="#{movIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Pesquisar" actionListener="#{movIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" />
+                    <p:commandButton value="Cancelar" actionListener="#{movIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" />
                     <p:commandButton value="Excluir" actionListener="#{movIndicadoresBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process="@form" />
                 </p:panelGrid>
             </p:panelGrid>
@@ -55,7 +56,7 @@
                         <p:outputLabel value="#{tpi.tpiDesc}" />
                     </p:column>
                     <p:column headerText="Ação" width="120">
-                        <p:commandButton value="Selecionar" actionListener="#{movIndicadoresBean.selecionaTpInd(tpi)}" update=":mensagem @form" process="@form" />
+                        <p:commandButton value="Selecionar" actionListener="#{movIndicadoresBean.selecionaTpInd(tpi)}" update=":mensagem @form" process="@this" />
                     </p:column>
                 </p:dataTable>
             </p:dialog>

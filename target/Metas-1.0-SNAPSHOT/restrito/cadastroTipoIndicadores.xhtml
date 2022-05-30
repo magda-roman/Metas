@@ -14,7 +14,7 @@
             <p:panelGrid columns="3" layout="grid">
                 <p:panelGrid columns="1" layout="grid">
                     <p:outputLabel value="Descrição" />
-                    <p:inputText value="#{gerTipoIndicadoresBean.tipoIndicadores.tpiDesc}" required="true" requiredMessage="O campo Nome é obrigatório" />
+                    <p:inputText value="#{gerTipoIndicadoresBean.tipoIndicadores.tpiDesc}" size="40" maxlength="255" required="true" requiredMessage="O campo Nome é obrigatório" />
 
                     <p:outputLabel value="Situação"/>
                     <p:selectOneRadio value="#{gerTipoIndicadoresBean.tipoIndicadores.tpiAtivo}">
@@ -31,23 +31,25 @@
                                  actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
                 <p:dataTable id="tabFaixas" value="#{gerTipoIndicadoresBean.tipoIndicadores.tpIndXFaixas}" var="ixf" rowIndexVar="ixfIndex">
                     <p:column headerText="Faixa Inicial">
-                        <p:inputNumber value="#{ixf.tpfFaixaIni}" >
+                        <p:inputText value="#{ixf.tpfFaixaIni}" >
+                            <p:keyFilter mask="num" />
                             <p:ajax />
-                        </p:inputNumber>
+                        </p:inputText>
                     </p:column>
                     <p:column headerText="Faixa Final">
-                        <p:inputNumber value="#{ixf.tpfFaixaFim}" >
+                        <p:inputText value="#{ixf.tpfFaixaFim}" >
+                            <p:keyFilter mask="num" />
                             <p:ajax />
-                        </p:inputNumber>
+                        </p:inputText>
                     </p:column>
                     <p:column headerText="Percentual de premiação">
                         <p:inputText value="#{ixf.tpfPercPremiacao}" maxlength="3" >
-                            <p:keyFilter mask="pint" />
+                            <p:keyFilter mask="num" />
                             <p:ajax />
                         </p:inputText>
                     </p:column>
                     <p:column headerText="Ação" width="90">
-                        <p:commandButton value="Remove" actionListener="#{gerTipoIndicadoresBean.remove(ixfIndex)}" update=":mensagem :form1:tabFaixas" process="@this" />
+                        <p:commandButton value="Remove" actionListener="#{gerTipoIndicadoresBean.remove(ixfIndex)}" tabindex="-1" update=":mensagem :form1:tabFaixas" process="@this" />
                     </p:column>
                 </p:dataTable>
 

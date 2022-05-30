@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Beans;
 
 import Classes.MovIndXTipos;
@@ -11,13 +7,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import utils.DateUtil;
+import utils.GraficoXLegenda;
 
 /**
  *
@@ -30,36 +32,56 @@ public class indexBean implements Serializable {
     @EJB
     private MovIndicadoresService mis;
 
-    private List<LineChartModel> lineModel1 = new ArrayList<>();
+    private List<GraficoXLegenda> graficoXLegenda = new ArrayList<>();
     private Date dataIni = new Date();
     private Date dataFim = new Date();
 
     @PostConstruct
     public void init() {
-        dataFim = DateUtil.adicionaDias(dataFim, 30);
+        dataIni = DateUtil.adicionaDias(dataIni, -30);
         pesquisar();
     }
 
     public void pesquisar() {
         List<MovIndicadores> movIndList = mis.buscaMovimentosPorPeriodo(dataIni, dataFim);
-
         for (MovIndicadores movIndicadores : movIndList) {
-            LineChartModel lineModel = new LineChartModel();
-            LineChartSeries series = new LineChartSeries();
+            Map<Integer, String> legenda = new TreeMap<>();
+
+            BarChartModel barModel = new BarChartModel();
+            ChartSeries series = new ChartSeries();
             for (MovIndXTipos movIndXTipo : movIndicadores.getMovIndXTipos()) {
-                series.set(movIndXTipo.getMviVlrResultado(), movIndXTipo.getMviPercCalculado());
+                String resultado = movIndXTipo.getMviVlrResultado().toString();
+                if (resultado.contains(".0")) {
+                    resultado = resultado.replace(".0", "");
+                }
+                if (legenda.isEmpty()) {
+                    legenda.put(1, movIndXTipo.getMviCodTipo().getTpiDesc() + " (" + resultado + ")");
+                } else {
+                    legenda.put(legenda.size() + 1, movIndXTipo.getMviCodTipo().getTpiDesc() + " (" + resultado + ")");
+                }
+                series.set(legenda.size(), movIndXTipo.getMviPercCalculado());
             }
-            lineModel.addSeries(series);
-            lineModel1.add(lineModel);
+            Axis yAxis = barModel.getAxis(AxisType.Y);
+            yAxis.setLabel("Percentual");
+            yAxis.setMin(20);
+            yAxis.setTickInterval("5");
+            yAxis.setMax(55);
+
+            barModel.setTitle(movIndicadores.getDtHrFormatada());
+            barModel.addSeries(series);
+
+            GraficoXLegenda gxl = new GraficoXLegenda(getFormataLegenda(legenda), barModel);
+            graficoXLegenda.add(gxl);
         }
     }
 
-    public List<LineChartModel> getLineModel1() {
-        return lineModel1;
-    }
-
-    public void setLineModel1(List<LineChartModel> lineModel1) {
-        this.lineModel1 = lineModel1;
+    public String getFormataLegenda(Map<Integer, String> legenda) {
+        StringBuilder legendaMontada = new StringBuilder();
+        legendaMontada.append("Legenda: <br>");
+        for (Entry<Integer, String> entry : legenda.entrySet()) {
+            legendaMontada.append(entry.getKey() + " = " + entry.getValue() + "<br>");
+        }
+        return legendaMontada.toString();
     }
 
     public Date getDataIni() {
@@ -78,4 +100,11 @@ public class indexBean implements Serializable {
         this.dataFim = dataFim;
     }
 
+    public List<GraficoXLegenda> getGraficoXLegenda() {
+        return graficoXLegenda;
+    }
+
+    public void setGraficoXLegenda(List<GraficoXLegenda> graficoXLegenda) {
+        this.graficoXLegenda = graficoXLegenda;
+    }
 }
