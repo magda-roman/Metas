@@ -33,7 +33,9 @@ public class MovIndicadoresService extends GenericDAO<MovIndicadores> {
     public GerTipoIndicadores buscaIndicadorPorValor(Double valor, Integer tpiCod) {
         List<GerTipoIndicadores> mviList = super.executeNativeQuery("SELECT FIRST 1 * FROM GER_TIPO_INDICADORES GTI "
                 + "LEFT JOIN GER_TIPO_INDXFAIXAS GTXF ON GTXF.TPF_CODTIPO = GTI.TPI_COD "
-                + "WHERE GTI.TPI_COD = " + tpiCod + " AND GTXF.TPF_FAIXA_INI <= " + valor + " AND GTXF.TPF_FAIXA_FIM >= " + valor, GerTipoIndicadores.class);
+                + "WHERE GTI.TPI_COD = " + tpiCod
+                + " AND GTXF.TPF_FAIXA_INI <= " + valor
+                + " AND GTXF.TPF_FAIXA_FIM >= " + valor, GerTipoIndicadores.class);
         GerTipoIndicadores tiIndRetorno = new GerTipoIndicadores();
         if (mviList != null && !mviList.isEmpty()) {
             tiIndRetorno = mviList.get(0);
@@ -43,6 +45,8 @@ public class MovIndicadoresService extends GenericDAO<MovIndicadores> {
 
     public List<MovIndicadores> buscaMovimentosPorPeriodo(Date dataIni, Date dataFim) {
         return super.executeNativeQuery("SELECT * FROM  MOV_INDICADORES MI"
-                + " WHERE MI.MOV_DTHR >= " + DateUtil.dataFirebird(dataIni) + " AND MI.MOV_DTHR <= " + DateUtil.dataFirebird(dataFim), MovIndicadores.class);
+                + " WHERE MI.MOV_DTHR >= "
+                + DateUtil.dataFirebird(dataIni)
+                + " AND MI.MOV_DTHR <= " + DateUtil.dataFirebird(dataFim) + " ORDER BY MI.MOV_DTHR", MovIndicadores.class);
     }
 }

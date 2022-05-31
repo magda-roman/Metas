@@ -10,7 +10,7 @@
     <ui:define name="conteudo">
         <p:growl id="mensagem" showDetail="true" />
         <h:form id="form1">
-            <p:panelGrid columns="3" layout="grid">
+            <p:panelGrid columns="2" layout="grid">
                 <p:panelGrid columns="1" layout="grid">
                     <p:panelGrid columns="1" layout="grid">
                         <p:outputLabel value="Nome" />
@@ -22,13 +22,24 @@
                         <p:selectBooleanCheckbox value="#{gerUsuarioBean.usuario.admin}" itemLabel="Permissão de Administrador" />
                     </p:panelGrid>
                     <p:panelGrid columns="5" layout="grid">
-                        <p:commandButton value="Salvar" actionListener="#{gerUsuarioBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                        <p:commandButton value="Pesquisar" actionListener="#{gerUsuarioBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process=":form1:nome @this" />
-                        <p:commandButton value="Cancelar" actionListener="#{gerUsuarioBean.limpar()}" styleClass="btnVerde" update=":mensagem @form" process=":form1:nome @this" />
-                        <p:commandButton value="Excluir" actionListener="#{gerUsuarioBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process=":form1:nome @this" />
+                        <p:commandButton value="Salvar" icon="pi pi-save" actionListener="#{gerUsuarioBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                        <p:commandButton value="Pesquisar" icon="pi pi-search" actionListener="#{gerUsuarioBean.pesquisa()}" styleClass="btnVerde" update=":mensagem @form" process="@this" />
+                        <p:commandButton value="Cancelar" icon="pi pi-ban" actionListener="#{gerUsuarioBean.limpar()}" styleClass="btnVerde" update=":mensagem @form" process="@this" />
+                        <p:commandButton value="Excluir" icon="pi pi-trash" actionListener="#{gerUsuarioBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process=":form1:nome @this" />
                     </p:panelGrid>
                 </p:panelGrid>
             </p:panelGrid>
+
+            <p:dialog widgetVar="dlgBscUsuarios" header="Busca de indicadores" width="600">
+                <p:dataTable id="tabUser" value="#{gerUsuarioBean.usuariosList}" paginator="true" rows="5" var="tpu">
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{tpu.nome}" />
+                    </p:column>
+                    <p:column headerText="Ação" width="120">
+                        <p:commandButton value="Selecionar" actionListener="#{gerUsuarioBean.selecionaUsuario(tpu)}" update=":mensagem @form" process="@this" />
+                    </p:column>
+                </p:dataTable>
+            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

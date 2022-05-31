@@ -1,44 +1,64 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <style>
-        .pnCenter .ui-panelgrid-content .ui-panelgrid-cell{
-            background: #d1d1d1;
+
+        .pnCenter .ui-panelgrid-content .ui-panelgrid-cell {
+            background-color:#000000;
             padding: 5px;
         }
-        .panelCenter .ui-panel-content {
-            background: #d1d1d1 !important;
+
+        .panelCenter .ui-panel-content  {
+            background: #000000 !important;
+        }
+
+        body .ui-panelgrid .ui-panelgrid-cell{
+            background: none !important;
         }
 
         .cc{
-            position: relative;
+            position: absolute;
             top: 50%;
-            transform: translateY(30%);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 10px;
         }
+
+        .login {
+            background:linear-gradient(90deg, #3eafa8, #00000096),url(https://www.jornalbomdia.com.br/tb_noticias/42694/System-GPTW-2020-1.jpg);
+            background-color: #cccccc;
+            background-repeat: no-repeat;
+            height: 640px;
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(4px);
+        }
+
+
     </style>
 
     <h:head>
         <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <h:body>
-        <div style="background-color: gray; height: 768px; width: 1360px;">
-            <h:form id="form1">
-                <p:growl id="mensagem" showDetail="true" />
-                <p:panelGrid layout="grid" columns="3" styleClass="cc">
-                    <p:panelGrid layout="grid" columns="1" />
-                    <p:panel header="Login" styleClass="panelCenter">
-                        <p:panelGrid layout="grid" columns="1" styleClass="pnCenter">
-                            <p:outputLabel value="Usuário" />
-                            <p:inputText value="#{loginBean.usuario}" placeholder="Usuário" />
-                            <p:outputLabel value="Senha" />
-                            <p:password value="#{loginBean.senha}" placeholder="Senha" />
-                            <p:commandButton value="Login" actionListener="#{loginBean.valida()}" icon="fa fa-trash" process="@form" update=":form1:mensagem"/>
-                        </p:panelGrid>
-                    </p:panel>
-                </p:panelGrid>
-            </h:form>
-        </div>
+    <h:body styleClass="login">
+        <h:form id="form1">
+            <p:growl id="mensagem" showDetail="true" />
+            <p:panelGrid layout="grid" columns="1" styleClass="cc">
+
+                <p:panel header="Login" styleClass="panelCenter" >
+                    <p:panelGrid layout="grid" columns="1" styleClass="pnCenter " >
+                        <p:outputLabel value="Usuário" />
+                        <p:inputText value="#{acessoBean.usuario}" placeholder="Usuário" />
+                        <p:outputLabel value="Senha" />
+                        <p:password value="#{acessoBean.senha}" placeholder="Senha" />
+                        <p:commandButton value="Login" actionListener="#{acessoBean.valida()}" icon="pi pi-sign-in" process="@form" update=":form1:mensagem"/>
+                    </p:panelGrid>
+                </p:panel>
+
+            </p:panelGrid>
+        </h:form>
     </h:body>
 </html>
