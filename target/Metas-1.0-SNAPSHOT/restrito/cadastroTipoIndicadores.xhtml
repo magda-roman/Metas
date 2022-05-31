@@ -27,7 +27,7 @@
 
 
             <p:panelGrid columns="1" layout="grid">
-                <p:commandButton value="adicionar"
+                <p:commandButton value="adicionar" icon="pi pi-plus"
                                  actionListener="#{gerTipoIndicadoresBean.adiciona()}" update=":mensagem :form1:tabFaixas" process="@this" />
                 <p:dataTable id="tabFaixas" value="#{gerTipoIndicadoresBean.tipoIndicadores.tpIndXFaixas}" var="ixf" rowIndexVar="ixfIndex">
                     <p:column headerText="Faixa Inicial">
@@ -56,10 +56,10 @@
                 <br />
 
                 <p:panelGrid columns="5" layout="grid">
-                    <p:commandButton value="Salvar" actionListener="#{gerTipoIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
-                    <p:commandButton value="Pesquisar" actionListener="#{gerTipoIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem" process="@this" />
-                    <p:commandButton value="Cancelar" actionListener="#{gerTipoIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@this" />
-                    <p:commandButton value="Excluir" actionListener="#{gerTipoIndicadoresBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Salvar" icon="pi pi-save" actionListener="#{gerTipoIndicadoresBean.salva()}" styleClass="btnVerde" update=":mensagem @form" process="@form" />
+                    <p:commandButton value="Pesquisar" icon="pi pi-search" actionListener="#{gerTipoIndicadoresBean.pesquisa()}" styleClass="btnVerde" update=":mensagem" process="@this" />
+                    <p:commandButton value="Cancelar" icon="pi pi-ban" actionListener="#{gerTipoIndicadoresBean.cancela()}" styleClass="btnVerde" update=":mensagem @form" process="@this" />
+                    <p:commandButton value="Excluir" icon="pi pi-trash" actionListener="#{gerTipoIndicadoresBean.excluir()}" styleClass="btnVermelho" update=":mensagem @form" process="@form" />
                 </p:panelGrid>
             </p:panelGrid>
 

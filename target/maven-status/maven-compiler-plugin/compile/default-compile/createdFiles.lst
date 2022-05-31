@@ -1,8 +1,6 @@
 Beans\MovIndicadoresBean.class
-Beans\GerUsuarioBean.class
 utils\SecUtil.class
 Classes\GerUsuario.class
-Beans\LoginBean.class
 Beans\GerTipoIndicadoresBean.class
 Classes\MovIndXTipos.class
 utils\JsfUtil.class
@@ -17,7 +15,6 @@ Classes\GerTipoIndicadores.class
 Beans\indexBean.class
 Services\GerTipoIndicadoresService.class
 Services\MovIndXTiposService.class
-Services\MovIndicadoresService.class
 utils\StringUtil.class
 Beans\GerBean.class
 com\projeto2\metas\resources\Crud\GenericDAO.class
