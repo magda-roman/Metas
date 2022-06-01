@@ -5,8 +5,10 @@ import Services.GerUsuarioService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import utils.JsfUtil;
 import utils.SecUtil;
@@ -23,8 +25,18 @@ public class GerUsuarioBean implements Serializable {
     @EJB
     GerUsuarioService gus;
 
+    @Inject
+    private AcessoBean acesso;
+
     private GerUsuario usuario = new GerUsuario();
     private List<GerUsuario> usuariosList = new ArrayList<>();
+
+    @PostConstruct
+    private void init() {
+        if (acesso.getUl() == null || !acesso.getUl().isAdmin()) {
+            JsfUtil.redirecionar("/publico/index.xhtml");
+        }
+    }
 
     public void salva() {
         try {
