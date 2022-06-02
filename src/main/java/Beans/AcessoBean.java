@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import utils.JsfUtil;
 import utils.ListUtil;
@@ -22,11 +22,12 @@ import utils.SecUtil;
  * @author Eduardo
  */
 @Named
-@ViewScoped
+@SessionScoped
 public class AcessoBean implements Serializable {
 
     private String usuario;
     private String senha;
+    private GerUsuario ul;
 
     @EJB
     private GerUsuarioService gus;
@@ -37,7 +38,8 @@ public class AcessoBean implements Serializable {
         filtros.put("senha", SecUtil.Encript(senha));
         List<GerUsuario> usuarios = gus.filtrar(filtros);
         if (ListUtil.isNotEmpty(usuarios)) {
-            JsfUtil.redirecionar("/");
+            ul = usuarios.get(0);
+            JsfUtil.redirecionar("/publico/index.xhtml");
         } else {
             JsfUtil.exibeErro("Usuário inválido");
         }
@@ -57,5 +59,13 @@ public class AcessoBean implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public GerUsuario getUl() {
+        return ul;
+    }
+
+    public void setUl(GerUsuario ul) {
+        this.ul = ul;
     }
 }

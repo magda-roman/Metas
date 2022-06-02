@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import utils.JsfUtil;
 import utils.ListUtil;
@@ -36,6 +37,9 @@ public class MovIndicadoresBean implements Serializable {
     @EJB
     private GerTipoIndicadoresService gti;
 
+    @Inject
+    private AcessoBean acesso;
+
     private MovIndicadores movIndicadores = new MovIndicadores();
     private GerTipoIndicadores tpInd;
     private Integer codTpInd;
@@ -44,6 +48,9 @@ public class MovIndicadoresBean implements Serializable {
 
     @PostConstruct
     private void init() {
+        if (acesso.getUl() == null || !acesso.getUl().isAdmin()) {
+            JsfUtil.redirecionar("/publico/index.xhtml");
+        }
         movIndicadores.setMovDtHr(new Date());
     }
 

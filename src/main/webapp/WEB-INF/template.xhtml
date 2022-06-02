@@ -32,13 +32,14 @@
                         <li class="nav-item">
                             <h:outputLink 
                                 value="#{application.contextPath}/publico/index.xhtml"
-                                styleClass="#{(view.viewId.equals('/publico/index.xhtml')) ? 'active': ''} nav-link">
+                                styleClass="#{(view.viewId.equals('/publico/index.xhtml')) ? 'active': ''} nav-link"> 
                                 Início
                             </h:outputLink>
                         </li>
                         <li class="nav-item">
                             <h:outputLink 
                                 value="#{application.contextPath}/restrito/cadastroUsuario.xhtml"
+                                style="#{acessoBean.ul.admin ? '' : 'display:none;'}"
                                 styleClass="#{(view.viewId.equals('/restrito/cadastroUsuario.xhtml')) ? 'active': ''} nav-link">
                                 Cadastro de usuario
                             </h:outputLink>
@@ -47,6 +48,7 @@
                             <h:outputLink 
                                 value="#{application.contextPath}/restrito/cadastroTipoIndicadores.xhtml"
                                 styleClass="#{(view.viewId.equals('/restrito/cadastroTipoIndicadores.xhtml')) ? 'active': ''} nav-link">
+                                style="#{acessoBean.ul.admin ? '' : 'display:none;'}"  
                                 Cadastro de Tipos de Indicadores
                             </h:outputLink>
                         </li>
@@ -54,6 +56,7 @@
                             <h:outputLink 
                                 value="#{application.contextPath}/restrito/cadastroMovimentoIndicadores.xhtml"
                                 styleClass="#{(view.viewId.equals('/restrito/cadastroMovimentoIndicadores.xhtml')) ? 'active': ''} nav-link">
+                                style="#{acessoBean.ul.admin ? '' : 'display:none;'}"
                                 Cadastro de Movimentos de Indicadores
                             </h:outputLink>
                         </li>

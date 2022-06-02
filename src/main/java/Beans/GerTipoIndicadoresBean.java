@@ -9,16 +9,15 @@ import Classes.GerTipoIndicadores;
 import Services.GerTipoIndicadoresService;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import utils.JsfUtil;
-import utils.StringUtil;
 
 /**
  *
@@ -31,8 +30,18 @@ public class GerTipoIndicadoresBean implements Serializable {
     @EJB
     GerTipoIndicadoresService gti;
 
+    @Inject
+    private AcessoBean acesso;
+
     private GerTipoIndicadores tipoIndicadores = new GerTipoIndicadores();
     private List<GerTipoIndicadores> tipoIndicadoresList = new ArrayList<>();
+
+    @PostConstruct
+    private void init() {
+        if (acesso.getUl() == null || !acesso.getUl().isAdmin()) {
+            JsfUtil.redirecionar("/publico/index.xhtml");
+        }
+    }
 
     public void pesquisa() {
         Map<String, Object> filtros = new HashMap<>();
